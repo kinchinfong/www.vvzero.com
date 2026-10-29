@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f4ec">
+    <meta name="description" content="从年少的相识，到三个人的家。把我们的十年，一笔一画，慢慢写给你。">
+    <link rel="icon" href="favicon.ico">
+    <title>十年，还好有你 · 我们的十周年</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #f8f4ec;
+            --ink: #59483e;
+            --muted: #84766b;
+            --rose: #a75f51;
+            --line: #e2d9cb;
+            --sage: #818b73;
+            --serif: "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", serif;
+            --sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+            --header-height: 76px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            content: "";
+            opacity: .16;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%2395826b' opacity='.18' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+        }
+        ::selection { background: #e8c9b9; color: #4d3d34; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--rose); outline-offset: 6px; }
+        button { -webkit-tap-highlight-color: transparent; }
+        .wrap { width: min(1160px, calc(100% - 96px)); margin: 0 auto; }
+        .serif { font-family: var(--serif); }
+        .heart-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            height: var(--header-height);
+            background: #f8f4ecf5;
+            border-bottom: 1px solid var(--line);
+        }
+        .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--serif); font-size: 15px; letter-spacing: 2px; }
+        .brand svg { color: var(--rose); }
+        .header-nav { display: flex; gap: 32px; font-size: 12px; letter-spacing: 1.5px; }
+        .header-nav a { padding: 12px 0; }
+        .header-nav a:hover { color: var(--rose); }
+        .skip-link { position: fixed; top: -100px; left: 16px; padding: 14px; background: var(--paper); z-index: 20; }
+        .skip-link:focus { top: 10px; }
+        .eyebrow { margin: 0; color: var(--rose); font-size: 11px; letter-spacing: 3px; line-height: 1.8; }
+
+        .hero { position: relative; padding: 70px 0 0; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; min-height: 530px; gap: 24px; }
+        .hero-copy { padding-bottom: 35px; }
+        .hero h1 { font-family: var(--serif); font-size: clamp(48px, 5.4vw, 73px); font-weight: 400; letter-spacing: 5px; line-height: 1.4; margin: 28px 0 22px; }
+        .hero h1 span { color: var(--rose); }
+        .hero-description { color: var(--muted); line-height: 2.1; font-size: 14px; letter-spacing: 1px; }
+        .story-link { display: inline-flex; align-items: center; gap: 28px; margin-top: 26px; padding: 13px 0; border-bottom: 1px solid #b59a86; font-size: 13px; letter-spacing: 2px; }
+        .story-link span { transition: transform .2s; font-size: 18px; }
+        .story-link:hover span { transform: translateY(4px); }
+        .hero-art { position: relative; height: 490px; isolation: isolate; }
+        .hero-art::before { position: absolute; content: ""; inset: 15px 0 10px; border-radius: 50%; background: radial-gradient(ellipse, #eedec8a6, #f2e9db40 60%, transparent 73%); z-index: -1; }
+        .anniversary-number { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); font-family: Georgia, "Times New Roman", serif; font-size: clamp(260px, 31vw, 390px); font-weight: 400; letter-spacing: -26px; line-height: 1; color: #b4715e; opacity: .89; user-select: none; }
+        .number-caption { position: absolute; top: 303px; width: 100%; text-align: center; color: var(--rose); font-size: 10px; letter-spacing: 6px; }
+        .hero-canvas { position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: min(100%, 470px); aspect-ratio: 520 / 210; }
+        .anniversary-seal { position: absolute; right: 9px; top: 24px; width: 78px; height: 78px; border: 1px solid #b98c72; border-radius: 50%; transform: rotate(13deg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--rose); font-size: 9px; letter-spacing: 1px; }
+        .anniversary-seal strong { font-family: Georgia, serif; font-size: 24px; font-weight: 400; white-space: nowrap; }
+        .hero-foot { border-top: 1px solid var(--line); padding: 23px 0; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; letter-spacing: 2px; }
+        .hero-foot .small-heart { color: var(--rose); font-size: 14px; margin: 0 12px; }
+        .hero-foot .scroll-cue { display: flex; align-items: center; gap: 12px; }
+        .scroll-cue i { display: inline-block; width: 1px; height: 23px; background: #b9a28b; }
+
+        .story { padding-top: 110px; }
+        .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 64px; }
+        .section-heading h2 { font-family: var(--serif); font-size: clamp(29px, 3.3vw, 42px); line-height: 1.6; font-weight: 400; letter-spacing: 3px; margin: 16px 0 0; }
+        .section-heading > p { color: var(--muted); font-size: 12px; line-height: 2; letter-spacing: 1px; margin: 0 0 9px; }
+        .journey { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 95px; align-items: start; }
+        .drawing-stage { position: sticky; top: calc(var(--header-height) + 32px); padding: 22px 25px 19px; background: #fcf9f2; border: 1px solid var(--line); border-radius: 150px 150px 7px 7px; box-shadow: 0 10px 45px -30px #8d6a4045; }
+        .stage-topline { display: flex; align-items: center; justify-content: space-between; padding: 6px 7px 0; font-size: 9px; letter-spacing: 2px; color: var(--muted); }
+        .stage-topline span:first-child { margin-left: 24px; }
+        .canvas-wrap { position: relative; margin: 6px -16px 0; }
+        .canvas-wrap::before { content: ""; position: absolute; inset: 7% 8%; background: radial-gradient(ellipse, #f2e4d4b0, #f6ede070 50%, transparent 72%); border-radius: 50%; }
+        #story-canvas { position: relative; display: block; width: 100%; aspect-ratio: 520 / 400; }
+        .scene-caption { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 0 0 14px; }
+        #scene-title { font-family: var(--serif); font-size: 17px; font-weight: 400; letter-spacing: 2px; margin: 0; }
+        .replay-button { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: transparent; display: grid; place-items: center; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+        .replay-button:hover { background: #f0e5d7; }
+        .replay-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+        .stage-progress { display: flex; gap: 5px; border-top: 1px solid var(--line); padding-top: 16px; }
+        .stage-progress span { height: 3px; flex: 1; background: #e7dfd3; transition: background .2s; }
+        .stage-progress span.passed { background: #cba58e; }
+        .stage-progress span.current { background: var(--rose); }
+        .stage-note { margin: 12px 0 0; color: var(--muted); text-align: center; font-size: 10px; letter-spacing: 2px; }
+        .chapters { position: relative; padding-left: 36px; }
+        .chapters::before { position: absolute; content: ""; top: 35px; bottom: 180px; left: 0; width: 1px; background: repeating-linear-gradient(to bottom, #d5c5b2 0, #d5c5b2 4px, transparent 4px, transparent 9px); }
+        .chapter { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 70vh; min-height: 70svh; padding: 60px 0 90px; scroll-margin-top: 220px; }
+        .chapter:first-child { padding-top: 40px; }
+        .chapter:last-child { min-height: 78vh; min-height: 78svh; }
+        .chapter-number { position: absolute; left: -50px; top: calc(50% - 95px); width: 29px; height: 29px; display: grid; place-items: center; background: var(--paper); border: 1px solid #d6c6b4; border-radius: 50%; font-family: Georgia, serif; font-size: 10px; color: #8d7c6a; transition: background .3s, color .3s; }
+        .chapter.is-active .chapter-number { background: var(--rose); border-color: var(--rose); color: var(--paper); }
+        .chapter-kicker { font-size: 10px; color: var(--rose); letter-spacing: 2px; margin: 0 0 16px; }
+        .chapter h3 { margin: 0 0 20px; font-family: var(--serif); font-size: clamp(25px, 2.7vw, 35px); font-weight: 400; line-height: 1.65; letter-spacing: 2px; }
+        .chapter-copy { font-size: 13px; line-height: 2.2; color: var(--muted); margin: 0; letter-spacing: .6px; }
+        .chapter-detail { display: inline-flex; align-items: baseline; gap: 7px; margin-top: 22px; color: var(--rose); font-size: 10px; letter-spacing: 2px; }
+        .chapter-detail strong { font-family: Georgia, serif; font-size: 38px; font-weight: 400; letter-spacing: 0; }
+        .chapter-footnote { width: 32px; height: 1px; margin-top: 28px; background: #c7aa8d; }
+
+        .page-footer { padding: 55px 24px 35px; text-align: center; border-top: 1px solid var(--line); }
+        .footer-heart { color: var(--rose); width: 25px; height: 25px; margin-bottom: 12px; }
+        .page-footer h2 { font-family: var(--serif); font-size: clamp(25px, 3vw, 35px); font-weight: 400; line-height: 1.8; letter-spacing: 3px; margin: 0 0 29px; }
+        .footer-date { font-size: 9px; color: var(--muted); letter-spacing: 3px; margin: 0; }
+        .back-to-top { display: inline-block; font-size: 10px; color: var(--muted); letter-spacing: 1px; padding: 14px; margin-top: 22px; }
+        .noscript-message { padding: 20px; border: 1px solid var(--line); text-align: center; line-height: 1.8; font-size: 13px; }
+
+        @media (min-width: 1500px) { .hero { padding-top: 95px; } .hero-grid { min-height: 580px; } }
+        @media (max-width: 1000px) {
+            .wrap { width: calc(100% - 64px); }
+            .journey { gap: 55px; }
+            .drawing-stage { padding: 20px 19px 16px; }
+            .hero-art { height: 430px; }
+            .anniversary-number { top: 5px; font-size: 300px; }
+            .number-caption { top: 283px; font-size: 8px; letter-spacing: 4px; }
+            .anniversary-seal { right: -5px; top: 12px; width: 65px; height: 65px; }
+            .hero-canvas { bottom: -12px; }
+            .hero h1 { font-size: 52px; }
+            .scene-caption { gap: 5px; }
+            #scene-title { font-size: 15px; letter-spacing: 1px; }
+        }
+        @media (max-width: 700px) {
+            :root { --header-height: 62px; }
+            html { scroll-padding-top: 82px; }
+            .wrap { width: calc(100% - 44px); }
+            .brand { gap: 7px; font-size: 12px; letter-spacing: 1px; }
+            .brand .heart-icon { width: 15px; height: 15px; }
+            .header-nav { gap: 18px; font-size: 10px; letter-spacing: .5px; }
+            .hero { padding-top: 38px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 8px; text-align: center; }
+            .hero-copy { padding-bottom: 0; }
+            .hero h1 { font-size: clamp(41px, 10vw, 58px); line-height: 1.45; letter-spacing: 4px; margin: 17px 0 14px; }
+            .hero h1 br { display: none; }
+            .hero h1 span { display: block; }
+            .eyebrow { font-size: 9px; letter-spacing: 2.4px; }
+            .hero-description { font-size: 12px; line-height: 1.95; margin: 0; }
+            .story-link { font-size: 11px; margin-top: 15px; padding: 10px 0; gap: 20px; }
+            .hero-art { width: min(370px, 100%); height: 340px; margin: 12px auto 0; }
+            .anniversary-number { font-size: 260px; top: -12px; letter-spacing: -17px; }
+            .number-caption { top: 223px; font-size: 8px; letter-spacing: 4px; }
+            .hero-canvas { width: 340px; max-width: 100%; bottom: -6px; }
+            .anniversary-seal { top: 4px; right: 5px; width: 61px; height: 61px; font-size: 8px; }
+            .anniversary-seal strong { font-size: 18px; }
+            .hero-foot { padding: 18px 0; font-size: 9px; letter-spacing: 1px; }
+            .hero-foot .small-heart { margin: 0 6px; }
+            .hero-foot .scroll-cue { gap: 8px; }
+            .story { padding-top: 67px; }
+            .section-heading { align-items: start; flex-direction: column; gap: 17px; margin-bottom: 32px; }
+            .section-heading h2 { font-size: 30px; letter-spacing: 2px; margin-top: 10px; }
+            .section-heading > p { font-size: 11px; }
+            .journey { display: block; }
+            .drawing-stage {
+                top: calc(var(--header-height) + 8px);
+                z-index: 3;
+                width: 100%;
+                padding: 12px 18px 11px;
+                border-radius: 64px 64px 5px 5px;
+                box-shadow: 0 14px 0 0 var(--paper), 0 -9px 0 0 var(--paper);
+            }
+            .stage-topline { padding: 0 3px; font-size: 8px; }
+            .stage-topline span:first-child { margin-left: 12px; }
+            .canvas-wrap { width: 100%; margin: -4px 0 -5px; height: clamp(142px, 28svh, 245px); }
+            #story-canvas { width: 100%; height: 100%; aspect-ratio: auto; object-fit: contain; }
+            .scene-caption { padding-bottom: 7px; }
+            #scene-title { font-size: 14px; letter-spacing: 1px; }
+            .replay-button { width: 34px; height: 34px; }
+            .stage-progress { padding-top: 10px; gap: 4px; }
+            .stage-note { display: none; }
+            .chapters { padding-left: 38px; margin-top: 4px; }
+            .chapters::before { top: 0; bottom: 140px; left: 8px; }
+            .chapter { min-height: 63svh; padding: 55px 0 65px; justify-content: center; scroll-margin-top: calc(var(--header-height) + 39svh + 65px); }
+            .chapter:first-child { padding-top: 40px; }
+            .chapter:last-child { min-height: 72svh; }
+            .chapter-number { left: -44px; top: calc(50% - 80px); }
+            .chapter h3 { font-size: 27px; margin-bottom: 15px; }
+            .chapter-kicker { margin-bottom: 12px; font-size: 9px; }
+            .chapter-copy { font-size: 12px; }
+            .chapter-detail { margin-top: 15px; }
+            .chapter-detail strong { font-size: 32px; }
+            .page-footer { padding-top: 45px; }
+        }
+        @media (max-width: 360px) {
+            .wrap { width: calc(100% - 32px); }
+            .header-nav { gap: 12px; }
+            .hero-foot { font-size: 8px; }
+            .hero-art { height: 320px; }
+            .anniversary-number { font-size: 240px; }
+            .number-caption { top: 203px; }
+            .chapter h3 { font-size: 24px; }
+        }
+        @media (min-width: 701px) and (max-height: 700px) {
+            .drawing-stage { top: calc(var(--header-height) + 14px); padding: 14px 18px 12px; }
+            .canvas-wrap { height: min(350px, calc(100svh - var(--header-height) - 170px)); min-height: 110px; margin: 0; }
+            #story-canvas { height: 100%; width: 100%; aspect-ratio: auto; }
+            .scene-caption { padding-bottom: 7px; }
+            .replay-button { width: 34px; height: 34px; }
+            .stage-progress { padding-top: 10px; }
+            .stage-note { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; animation: none !important; }
+        }
+    </style>
+</head>
+<body id="top">
+    <a class="skip-link" href="#story">跳到我们的故事</a>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="#top" aria-label="我们的第十年，回到首页">
+                <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20S3 14.5 3 8.6C3 3.8 9 2.5 12 7c3-4.5 9-3.2 9 1.6C21 14.5 12 20 12 20Z"/></svg>
+                我们的第十年
+            </a>
+            <nav class="header-nav" aria-label="页面导航"><a href="#story">时光手记</a></nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero wrap" aria-labelledby="page-title">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <!-- 纪念日期沿用 love/index.html 中的恋爱起始日期。 -->
+                    <p class="eyebrow">2016.10.21 &nbsp;—&nbsp; 2026.10.21</p>
+                    <h1 id="page-title">十年，<br><span>还好有你。</span></h1>
+                    <p class="hero-description">从屏幕两端的「你好」，<br>到一家三口的「晚安」。</p>
+                    <a class="story-link" href="#story">翻开我们的故事 <span aria-hidden="true">↓</span></a>
+                </div>
+                <div class="hero-art" role="img" aria-label="恋爱十周年：数字 10 下，爸爸妈妈牵着孩子的简笔画">
+                    <div class="anniversary-number" aria-hidden="true">10</div>
+                    <div class="anniversary-seal" aria-hidden="true"><span>YOU &amp; ME</span><strong>十周年</strong><span>SINCE 2016</span></div>
+                    <div class="number-caption" aria-hidden="true">YEARS OF US, A LIFETIME TO GO</div>
+                    <canvas class="hero-canvas" id="hero-canvas" width="1040" height="420" aria-hidden="true"></canvas>
+                </div>
+            </div>
+            <div class="hero-foot"><span>相识 <span class="small-heart" aria-hidden="true">♡</span> 相恋 <span class="small-heart" aria-hidden="true">♡</span> 相伴 <span class="small-heart" aria-hidden="true">♡</span> 成家</span><span class="scroll-cue"><i aria-hidden="true"></i> 向下，慢慢回忆</span></div>
+        </section>
+
+        <section class="story wrap" id="story" aria-labelledby="story-heading">
+            <div class="section-heading">
+                <div><p class="eyebrow">CHAPTERS OF US</p><h2 id="story-heading">把我们的故事，<br>再画一遍。</h2></div>
+            </div>
+            <noscript><p class="noscript-message">开启 JavaScript，就能看到随滚动绘制的简笔画。我们的十二段回忆，也都写在下面。</p><style>.drawing-stage{display:none}.journey{display:block}.chapter{min-height:300px}</style></noscript>
+            <div class="journey">
+                <aside class="drawing-stage" aria-label="随故事展开的简笔画">
+                    <div class="stage-topline"><span>OUR LITTLE STORY</span><span id="scene-counter">01 / 12</span></div>
+                    <div class="canvas-wrap"><canvas id="story-canvas" width="1040" height="800" role="img" aria-label="高中时，我们在网络两端相识"></canvas></div>
+                    <div class="scene-caption"><p id="scene-title" aria-live="polite" aria-atomic="true">屏幕两端的相遇</p><button class="replay-button" id="replay" type="button" title="重画这一幕" aria-label="重画这一幕"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1.4 7M4 4v6h6"/></svg></button></div>
+                    <div class="stage-progress" aria-hidden="true"><span class="current"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                    <p class="stage-note">往下翻，让回忆慢慢发生</p>
+                </aside>
+                <div class="chapters">
+                    <article class="chapter is-active" id="chapter-1" data-scene="0"><span class="chapter-number" aria-hidden="true">01</span><p class="chapter-kicker">故事的起点 · 高中</p><h3>一句「你好」，<br>是所有故事的开始。</h3><p class="chapter-copy">那时的我们，还在读高中。<br>隔着屏幕，认识了后来最重要的人。</p><div class="chapter-detail"><strong>-1</strong> ST YEAR · 相识</div></article>
+                    <article class="chapter" id="chapter-2" data-scene="1"><span class="chapter-number" aria-hidden="true">02</span><p class="chapter-kicker">大学一年级 · 确定恋情</p><h3>从此，你有了<br>一个特别的称呼。</h3><p class="chapter-copy">大一那年，我们在一起了。<br>原本各自向前的人生，开始有了同一个方向。</p><div class="chapter-detail"><strong>0</strong> TH YEAR ·牵手</div></article>
+                    <article class="chapter" id="chapter-3" data-scene="2"><span class="chapter-number" aria-hidden="true">03</span><p class="chapter-kicker">第三次见面 · 第一次亲吻</p><h3>靠近一点，<br>心跳就乱了。</h3><p class="chapter-copy">第三次见面，我们第一次亲吻。<br>那个瞬间，成了只属于我们的回忆。</p><div class="chapter-detail"><strong>3</strong> RD MEETING · 初次相拥</div></article>
+                    <article class="chapter" id="chapter-4" data-scene="3"><span class="chapter-number" aria-hidden="true">04</span><p class="chapter-kicker">在一起后的第一个寒假</p><h3>去见你的路，<br>骑了四十公里。</h3><p class="chapter-copy">第一个寒假，我骑着自行车去找你。<br>四十公里的终点，是我想见的人。</p><div class="chapter-detail"><strong>40</strong> KM · 骑向你</div></article>
+                    <article class="chapter" id="chapter-5" data-scene="4"><span class="chapter-number" aria-hidden="true">05</span><p class="chapter-kicker">在一起一年左右 · 第一次外市游玩</p><h3>第一次，把远方<br>变成我们的回忆。</h3><p class="chapter-copy">在一起一年左右，我们第一次去外市游玩。<br>从那以后，风景里多了一个你。</p><div class="chapter-detail"><strong>1</strong> ST YEAR · 出游</div></article>
+                    <article class="chapter" id="chapter-6" data-scene="5"><span class="chapter-number" aria-hidden="true">06</span><p class="chapter-kicker">大学毕业后 · 第一次同居</p><h3>不用再告别，<br>我们一起回家。</h3><p class="chapter-copy">大学毕业，我们第一次住在一起。<br>两个人的日常，慢慢有了家的模样。</p><div class="chapter-detail"><strong>4</strong> TH YEAR · 一屋二人三餐四季</div></article>
+                    <article class="chapter" id="chapter-7" data-scene="6"><span class="chapter-number" aria-hidden="true">07</span><p class="chapter-kicker">同居后的第一个情人节 · 订婚</p><h3>这个情人节，<br>我们约定了以后。</h3><p class="chapter-copy">一起生活后的第一个情人节，我们订婚了。<br>从喜欢你，走向许许多多的明天。</p><div class="chapter-detail"><strong>5</strong> TH YEAR · 订婚</div></article>
+                    <article class="chapter" id="chapter-8" data-scene="7"><span class="chapter-number" aria-hidden="true">08</span><p class="chapter-kicker">订婚两年后 · 求婚</p><h3>我想认真地问你：<br>余生，一起好吗？</h3><p class="chapter-copy">订婚两年后，我向你求婚。<br>想把每一个平凡的明天，都过成我们的日子。</p><div class="chapter-detail">求婚</div></article>
+                    <article class="chapter" id="chapter-9" data-scene="8"><span class="chapter-number" aria-hidden="true">09</span><p class="chapter-kicker">求婚同年 · 领取结婚证</p><h3>两本小红本，<br>写下同一个家。</h3><p class="chapter-copy">求婚的同一年，我们领了结婚证。<br>从这一天起，我们是合法夫妻。</p><div class="chapter-detail"><strong>7</strong> TH YEAR · 领证</div></article>
+                    <article class="chapter" id="chapter-10" data-scene="9"><span class="chapter-number" aria-hidden="true">10</span><p class="chapter-kicker">在一起第七年 · 第一次一起出国</p><h3>世界很大，<br>想和你一起看看。</h3><p class="chapter-copy">在一起第七年，我们第一次一起出国旅行。<br>我们并肩走向了世界。</p><div class="chapter-detail"><strong>7</strong> TH YEAR · 一起看世界</div></article>
+                    <article class="chapter" id="chapter-11" data-scene="10"><span class="chapter-number" aria-hidden="true">11</span><p class="chapter-kicker">在一起第九年 · 我们的婚礼</p><h3>走向你的这一天，<br>已经期待了好久。</h3><p class="chapter-copy">在一起第九年，我们举办了婚礼。<br>把一路走来的爱，郑重地说给彼此听。</p><div class="chapter-detail"><strong>9</strong> TH YEAR · 我们结婚了</div></article>
+                    <article class="chapter" id="chapter-12" data-scene="11"><span class="chapter-number" aria-hidden="true">12</span><p class="chapter-kicker">现在 · 恋爱十周年</p><h3>我们的十年，<br>成了三个人的家。</h3><p class="chapter-copy">十周年快乐，我们也有了自己的小孩。<br>从你和我，到我们。故事，还在继续。</p><div class="chapter-detail"><strong>10</strong> YEARS · 一家三口</div></article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="page-footer">
+        <svg class="heart-icon footer-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20S3 14.5 3 8.6C3 3.8 9 2.5 12 7c3-4.5 9-3.2 9 1.6C21 14.5 12 20 12 20Z"/></svg>
+        <h2>下一个十年，<br>也一起慢慢走。</h2>
+        <p class="footer-date">2016 — 2026 &nbsp; · &nbsp; TO BE CONTINUED</p>
+        <a class="back-to-top" href="#top">回到故事的开头 ↑</a>
+    </footer>
+    <script>
+        (() => {
+            'use strict';
+
+            const colors = { ink: '#735b48', rose: '#b67967', sage: '#8d987b', gold: '#bb9a66', pale: '#d6c6af', paper: '#fcf9f2', blush: '#ecd0bf' };
+            const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+            const mix = (a, b, t) => a + (b - a) * t;
+
+            // 记录每条线的采样点和长度，滚动时按实际笔画长度逐段绘制。
+            // 十二幕共用同一支“画笔”，不依赖图片、外部字体或第三方库。
+            class Sketch {
+                constructor() {
+                    this.paths = [];
+                    this.matrix = [1, 0, 0, 1, 0, 0];
+                    this.total = 0;
+                }
+                point(x, y) {
+                    const m = this.matrix;
+                    return [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]];
+                }
+                group(x, y, scale, draw, flip = false, rotation = 0) {
+                    const previous = this.matrix;
+                    const [a, b, c, d, e, f] = previous;
+                    const cos = Math.cos(rotation) * scale, sin = Math.sin(rotation) * scale;
+                    const direction = flip ? -1 : 1;
+                    this.matrix = [(a * cos + c * sin) * direction, (b * cos + d * sin) * direction, -a * sin + c * cos, -b * sin + d * cos, a * x + c * y + e, b * x + d * y + f];
+                    draw();
+                    this.matrix = previous;
+                }
+                path(commands, color = colors.ink, width = 2, fill = null) {
+                    let previous = commands[0];
+                    const points = [this.point(...previous)];
+                    commands.slice(1).forEach(command => {
+                        if (command.length === 2) {
+                            points.push(this.point(...command));
+                        } else {
+                            const start = previous;
+                            const count = command.length === 4 ? 18 : 24;
+                            for (let j = 1; j <= count; j++) {
+                                const t = j / count, u = 1 - t;
+                                if (command.length === 4) {
+                                    points.push(this.point(u * u * start[0] + 2 * u * t * command[0] + t * t * command[2], u * u * start[1] + 2 * u * t * command[1] + t * t * command[3]));
+                                } else {
+                                    points.push(this.point(u ** 3 * start[0] + 3 * u * u * t * command[0] + 3 * u * t * t * command[2] + t ** 3 * command[4], u ** 3 * start[1] + 3 * u * u * t * command[1] + 3 * u * t * t * command[3] + t ** 3 * command[5]));
+                                }
+                            }
+                        }
+                        previous = command.slice(-2);
+                    });
+                    const lengths = points.map((point, index) => index ? Math.hypot(point[0] - points[index - 1][0], point[1] - points[index - 1][1]) : 0);
+                    const length = lengths.reduce((sum, value) => sum + value, 0);
+                    const weight = Math.max(10, length);
+                    this.paths.push({ points, lengths, length, weight, color, width, fill });
+                    this.total += weight;
+                }
+                line(...coordinates) {
+                    const points = [];
+                    for (let i = 0; i < coordinates.length; i += 2) points.push(coordinates.slice(i, i + 2));
+                    this.path(points);
+                }
+                ellipse(x, y, rx, ry = rx, color = colors.ink, width = 2, fill = null) {
+                    const points = [];
+                    for (let j = 0; j <= 64; j++) {
+                        const angle = j / 64 * Math.PI * 2;
+                        points.push([x + Math.cos(angle) * rx, y + Math.sin(angle) * ry]);
+                    }
+                    this.path(points, color, width, fill);
+                }
+                rect(x, y, w, h, color = colors.ink, fill = null) {
+                    this.path([[x + 3, y], [x + w - 3, y], [x + w, y, x + w, y + 3], [x + w, y + h - 3], [x + w, y + h, x + w - 3, y + h], [x + 3, y + h], [x, y + h, x, y + h - 3], [x, y + 3], [x, y, x + 3, y]], color, 1.8, fill);
+                }
+                text(x, y, value, size = 14, color = colors.ink) {
+                    const point = this.point(x, y);
+                    const scale = Math.hypot(this.matrix[0], this.matrix[1]);
+                    this.paths.push({ text: value, point, size: size * scale, color, weight: 35 });
+                    this.total += 35;
+                }
+            }
+
+            function heart(p, x, y, size = 12, color = colors.rose, fill = null) {
+                p.group(x, y, size / 20, () => p.path([[0, 16], [-30, -3, -17, -26, 0, -12], [17, -26, 30, -3, 0, 16]], color, 1.8, fill));
+            }
+            function sparkle(p, x, y, size = 6, color = colors.gold) {
+                p.path([[x, y - size], [x, y + size]], color, 1.4);
+                p.path([[x - size, y], [x + size, y]], color, 1.4);
+            }
+            function sprig(p, x, y, scale = 1, flip = false) {
+                p.group(x, y, scale, () => {
+                    p.path([[0, 0], [-9, -32, 3, -70]], colors.sage, 1.6);
+                    [[-3, -16, -23, -35], [-3, -29, 17, -43], [-1, -43, -17, -60], [1, -56, 15, -72]].forEach(([sx, sy, ex, ey]) => {
+                        p.path([[sx, sy], [ex, sy, ex, ey], [sx, ey, sx, sy]], colors.sage, 1.3, '#dce1cc70');
+                    });
+                }, flip);
+            }
+            function flower(p, x, y, radius = 8) {
+                for (let j = 0; j < 5; j++) {
+                    const a = j / 5 * Math.PI * 2;
+                    p.ellipse(x + Math.cos(a) * radius * .7, y + Math.sin(a) * radius * .7, radius * .48, radius * .48, colors.rose, 1.3, '#ead1bf70');
+                }
+                p.ellipse(x, y, radius * .25, radius * .25, colors.gold, 1, '#c8a372');
+            }
+            function ground(p) {
+                p.path([[65, 341], [193, 337, 315, 343, 452, 339]], colors.pale, 1.5);
+                p.path([[88, 350], [139, 348]], colors.pale, 1);
+                p.path([[365, 350], [414, 349]], colors.pale, 1);
+            }
+            function person(p, x, y, options = {}) {
+                const { female = false, scale = 1, flip = false, pose = 'stand', arms, wedding = false, profile = false } = options;
+                p.group(x, y, scale, () => {
+                    if (wedding && female) p.path([[-18, -130], [-39, -113, -42, -42, -37, -11], [0, 1, 42, -9], [39, -95, 30, -126, 17, -132]], colors.pale, 1.5);
+                    if (female) p.path([[-19, -99], [-33, -133, -15, -150, 2, -143], [28, -143, 29, -115, 23, -94], [13, -89]], colors.ink, 2, '#ede1ce70');
+                    p.ellipse(0, -112, 19, 22, colors.ink, 2, colors.paper);
+                    if (female) {
+                        p.path([[-18, -118], [-3, -126, 0, -135], [4, -124, 18, -119]], colors.ink, 2);
+                    } else {
+                        p.path([[-19, -115], [-24, -139, -8, -141, -4, -135], [8, -147, 25, -129, 19, -116]], colors.ink, 2, '#e6dbc870');
+                    }
+                    if (profile) {
+                        p.ellipse(8, -113, 1, 1.3, colors.ink, 1, colors.ink);
+                        p.path([[18, -114], [23, -109], [18, -107]], colors.ink, 1.3);
+                        p.path([[11, -102], [16, -101]], colors.ink, 1.2);
+                    } else {
+                        p.ellipse(-6, -113, 1, 1.3, colors.ink, 1, colors.ink);
+                        p.ellipse(6, -113, 1, 1.3, colors.ink, 1, colors.ink);
+                        p.path([[-5, -103], [0, -98, 5, -103]], colors.ink, 1.3);
+                    }
+                    p.ellipse(-12, -106, 3.6, 1.8, colors.blush, 1, colors.blush);
+                    p.ellipse(12, -106, 3.6, 1.8, colors.blush, 1, colors.blush);
+                    p.line(-5, -90, -5, -85);
+                    p.line(5, -90, 5, -85);
+                    if (female) {
+                        p.path([[-5, -86], [-14, -86], [wedding ? -35 : -25, wedding ? -4 : -39], [wedding ? 35 : 25, wedding ? -4 : -39], [14, -86], [5, -86]], wedding ? colors.ink : colors.rose, 2, wedding ? colors.paper : '#edc9b536');
+                        p.path([[-5, -85], [0, -78, 5, -85]], colors.rose, 1.5);
+                    } else {
+                        p.path([[-5, -86], [-15, -84], [-18, -43], [17, -43], [14, -84], [5, -86]], colors.ink, 2, '#e8e6d840');
+                        p.path([[-5, -85], [0, -77], [5, -85]], colors.ink, 1.5);
+                        if (wedding) p.path([[-5, -82], [5, -78], [5, -84], [-5, -78], [-5, -82]], colors.rose, 1.5, colors.rose);
+                    }
+                    const ends = arms || [[-26, -46], [26, -46]];
+                    p.path([[-14, -82], [-29, -65, ...ends[0]]], colors.ink, 2.1);
+                    p.path([[14, -82], [29, -65, ...ends[1]]], colors.ink, 2.1);
+                    if (pose === 'sit') {
+                        p.line(-13, -40, 14, -33, 16, -5, 25, -5);
+                        p.line(4, -40, 31, -34, 33, -5, 41, -5);
+                    } else if (pose === 'kneel') {
+                        p.line(-12, -43, -24, -11, 0, -11, 5, -6);
+                        p.line(11, -43, 30, -26, 31, -4, 42, -4);
+                    } else {
+                        p.line(-11, wedding && female ? -5 : -39, -12, -3, -22, -3);
+                        p.line(11, wedding && female ? -5 : -39, 13, -3, 23, -3);
+                    }
+                }, flip);
+            }
+            function baby(p, x, y) {
+                p.ellipse(x, y + 11, 21, 29, colors.rose, 1.8, '#eee1ca');
+                p.ellipse(x, y - 14, 13, 14, colors.ink, 1.7, colors.paper);
+                p.path([[x - 5, y - 27], [x + 3, y - 34, x + 4, y - 26]], colors.ink, 1.3);
+                p.path([[x - 7, y - 15], [x - 4, y - 12, x - 1, y - 15]], colors.ink, 1.2);
+                p.path([[x + 3, y - 15], [x + 6, y - 12, x + 9, y - 15]], colors.ink, 1.2);
+                p.path([[x - 17, y], [x, y + 7, x + 19, y + 13]], colors.rose, 1.4);
+                p.path([[x + 17, y - 1], [x - 1, y + 11, x - 16, y + 22]], colors.rose, 1.4);
+            }
+            function family(p, y = 332) {
+                person(p, 199, y, { arms: [[-25, -46], [47, -59]] });
+                person(p, 322, y, { female: true, arms: [[-48, -59], [25, -46]] });
+                baby(p, 260, y - 68);
+            }
+            function suitcase(p, x, y, scale = 1) {
+                p.group(x, y, scale, () => {
+                    p.rect(-15, -42, 30, 40, colors.gold, '#e9d6b73d');
+                    p.path([[-6, -43], [-6, -56], [6, -56], [6, -43]], colors.gold, 1.8);
+                    p.path([[-6, -34], [-6, -10]], colors.gold, 1);
+                    p.path([[6, -34], [6, -10]], colors.gold, 1);
+                    p.ellipse(-9, 0, 2.5, 2.5, colors.ink, 1);
+                    p.ellipse(9, 0, 2.5, 2.5, colors.ink, 1);
+                });
+            }
+            function laptop(p, x, y, flip = false) {
+                p.group(x, y, 1, () => {
+                    p.path([[0, 0], [55, 0], [65, -43], [10, -43], [0, 0]], colors.ink, 1.8, colors.paper);
+                    p.ellipse(33, -22, 3, 3, colors.pale, 1.2);
+                    p.line(-18, 3, 56, 3, 60, 0);
+                }, flip);
+            }
+            function houseOutline(p) {
+                p.path([[78, 165], [257, 66], [440, 165]], colors.pale, 2.5);
+                p.path([[102, 154], [102, 333], [418, 333], [418, 154]], colors.pale, 2);
+                p.path([[349, 112], [349, 81], [378, 81], [378, 128]], colors.pale, 2);
+                p.ellipse(260, 142, 23, 23, colors.pale, 1.8);
+                p.path([[237, 142], [283, 142]], colors.pale, 1.4);
+                p.path([[260, 119], [260, 165]], colors.pale, 1.4);
+            }
+
+            const sceneDefinitions = [
+                {
+                    title: '屏幕两端的相遇', description: '高中时，两个人坐在电脑前，隔着网络聊天，心意在两块屏幕之间相连。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[57, 304], [232, 304]], colors.pale, 2);
+                        p.path([[289, 304], [464, 304]], colors.pale, 2);
+                        p.path([[76, 305], [73, 338]], colors.pale, 1.5);
+                        p.path([[445, 305], [449, 338]], colors.pale, 1.5);
+                        person(p, 111, 334, { pose: 'sit', scale: .95, arms: [[-21, -45], [59, -38]] });
+                        person(p, 409, 334, { female: true, pose: 'sit', scale: .95, flip: true, arms: [[-21, -45], [59, -38]] });
+                        laptop(p, 156, 300);
+                        laptop(p, 364, 300, true);
+                        p.rect(82, 126, 104, 53, colors.pale, '#f6eddf');
+                        p.path([[148, 179], [155, 189], [159, 179]], colors.pale, 1.5);
+                        p.text(134, 159, 'Hello!', 17, colors.rose);
+                        p.rect(335, 111, 96, 53, colors.pale, '#f6eddf');
+                        p.path([[357, 164], [351, 175], [371, 164]], colors.pale, 1.5);
+                        heart(p, 382, 140, 12);
+                        p.path([[216, 226], [241, 193, 278, 193, 305, 221]], colors.pale, 1.5);
+                        heart(p, 260, 189, 16);
+                        p.line(62, 299, 84, 299, 84, 291, 61, 291);
+                        p.line(434, 297, 458, 297, 458, 289, 437, 289);
+                        sparkle(p, 281, 131, 5);
+                    }
+                },
+                {
+                    title: '从相识，到相恋', description: '大学校园前，两个人牵起手，头顶浮起一颗心，正式成为恋人。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[135, 196], [135, 120], [259, 73], [384, 120], [384, 196]], colors.pale, 1.8);
+                        p.path([[123, 122], [259, 69], [396, 122]], colors.pale, 1.5);
+                        p.ellipse(260, 111, 14, 14, colors.pale, 1.4);
+                        p.path([[260, 102], [260, 111], [268, 114]], colors.pale, 1.2);
+                        [162, 206, 302, 346].forEach(x => p.rect(x, 143, 14, 26, colors.pale));
+                        person(p, 213, 333, { arms: [[-25, -46], [47, -58]] });
+                        person(p, 307, 333, { female: true, arms: [[-47, -58], [25, -46]] });
+                        p.path([[190, 248], [177, 242], [169, 272], [188, 278]], colors.sage, 1.8);
+                        p.path([[322, 255], [341, 258], [338, 282], [320, 281]], colors.rose, 1.8);
+                        heart(p, 260, 174, 18, colors.rose, '#e8c3af45');
+                        sprig(p, 103, 334, .62);
+                        sprig(p, 417, 334, .62, true);
+                        sparkle(p, 225, 179, 5);
+                        sparkle(p, 298, 170, 4);
+                    }
+                },
+                {
+                    title: '第三次见面的心动', description: '两个人在路灯下靠近，轻轻亲吻，身旁有树枝与小小的爱心。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[94, 336], [94, 157], [94, 124, 121, 124]], colors.pale, 2.5);
+                        p.path([[107, 124], [104, 146], [136, 146], [132, 124], [107, 124]], colors.gold, 1.8, '#f4e3b675');
+                        p.path([[120, 146], [107, 182]], colors.pale, 1);
+                        p.path([[127, 146], [140, 182]], colors.pale, 1);
+                        p.path([[391, 338], [384, 230, 406, 109]], colors.pale, 2.2);
+                        p.path([[393, 180], [425, 160, 441, 132]], colors.pale, 1.5);
+                        sprig(p, 406, 151, .65, true);
+                        sprig(p, 392, 208, .6);
+                        person(p, 239, 332, { profile: true, arms: [[-24, -45], [39, -65]] });
+                        person(p, 279, 332, { female: true, profile: true, flip: true, arms: [[-24, -45], [32, -64]] });
+                        heart(p, 260, 162, 16);
+                        heart(p, 298, 140, 7, colors.gold);
+                        sparkle(p, 199, 171, 5);
+                        sparkle(p, 330, 188, 4);
+                    }
+                },
+                {
+                    title: '四十公里，只为见你', description: '寒假里，男孩戴着围巾骑自行车，沿四十公里的路去见等候的女孩。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[47, 204], [85, 176], [112, 196], [153, 163], [183, 183]], colors.pale, 1.5);
+                        p.path([[295, 188], [334, 165], [366, 183], [414, 154], [469, 181]], colors.pale, 1.5);
+                        p.ellipse(142, 302, 37, 37, colors.ink, 2.2);
+                        p.ellipse(246, 302, 37, 37, colors.ink, 2.2);
+                        p.path([[142, 302], [175, 253], [199, 302], [142, 302], [219, 255], [246, 302]], colors.sage, 2.5);
+                        p.path([[199, 302], [219, 255], [214, 239], [230, 239]], colors.ink, 2);
+                        p.path([[175, 253], [171, 244], [158, 244], [180, 244]], colors.ink, 2);
+                        p.ellipse(199, 302, 6, 6, colors.ink, 1.8);
+                        p.line(199, 302, 212, 309, 220, 309);
+                        p.path([[174, 243], [184, 211], [207, 220], [201, 247], [174, 243]], colors.ink, 2, '#e0e3d650');
+                        p.ellipse(205, 194, 17, 19, colors.ink, 2, colors.paper);
+                        p.path([[189, 189], [193, 169, 218, 173, 221, 190]], colors.ink, 2);
+                        p.path([[203, 212], [214, 232], [226, 237]], colors.ink, 2);
+                        p.path([[179, 244], [205, 266], [195, 290], [206, 293]], colors.ink, 2);
+                        p.path([[191, 245], [172, 270], [170, 291], [180, 293]], colors.ink, 2);
+                        p.path([[191, 207], [209, 211], [207, 219], [190, 214], [167, 220]], colors.rose, 2, '#eed8c5');
+                        p.ellipse(210, 192, 1, 1, colors.ink, 1, colors.ink);
+                        p.path([[62, 251], [96, 251]], colors.pale, 1.3);
+                        p.path([[73, 263], [101, 263]], colors.pale, 1.3);
+                        person(p, 410, 334, { female: true, scale: .9, arms: [[-35, -69], [23, -46]] });
+                        p.rect(302, 249, 57, 29, colors.gold, '#f1e4cc');
+                        p.text(330, 269, '40 km', 13, colors.rose);
+                        p.path([[331, 278], [331, 335]], colors.gold, 1.8);
+                        heart(p, 397, 174, 12);
+                        sparkle(p, 107, 139, 6, colors.pale);
+                        sparkle(p, 288, 126, 5, colors.pale);
+                    }
+                },
+                {
+                    title: '第一次，共赴远方', description: '两个人带着行李箱与相机，到另一座城市游玩，身后是城市轮廓和远山。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[62, 240], [62, 173], [91, 173], [91, 145], [131, 145], [131, 207], [160, 207], [160, 161], [185, 161]], colors.pale, 1.7);
+                        p.path([[335, 196], [335, 166], [360, 166], [360, 194], [391, 194], [391, 141], [431, 141], [431, 236], [455, 236]], colors.pale, 1.7);
+                        p.path([[191, 139], [232, 103], [257, 130], [294, 93], [331, 135]], colors.pale, 1.4);
+                        [[74, 187], [74, 207], [104, 159], [118, 159], [404, 159], [418, 159], [404, 180], [418, 180]].forEach(([x, y]) => p.path([[x, y], [x, y + 7]], colors.pale, 1.5));
+                        person(p, 212, 332, { scale: .97, arms: [[-40, -41], [41, -62]] });
+                        person(p, 302, 332, { female: true, scale: .97, arms: [[-43, -62], [27, -46]] });
+                        suitcase(p, 163, 332, .9);
+                        p.rect(243, 259, 29, 21, colors.ink, '#e8ddcd');
+                        p.ellipse(258, 269, 7, 7, colors.ink, 1.3);
+                        p.path([[248, 259], [245, 253], [258, 253], [263, 259]], colors.ink, 1.4);
+                        p.path([[377, 112], [348, 79, 377, 51], [406, 79, 377, 112]], colors.rose, 1.7);
+                        p.ellipse(377, 78, 7, 7, colors.rose, 1.3);
+                        sprig(p, 96, 333, .5);
+                        sparkle(p, 151, 104, 5);
+                    }
+                },
+                {
+                    title: '把日常，过成一个家', description: '大学毕业后，两个人坐在新家的沙发上，旁边有搬家纸箱、落地灯和绿植。',
+                    draw(p) {
+                        houseOutline(p);
+                        ground(p);
+                        p.path([[156, 290], [156, 255, 175, 255], [333, 255], [350, 255, 350, 290]], colors.sage, 2);
+                        p.path([[152, 290], [144, 279, 139, 291], [139, 323], [368, 323], [368, 292], [363, 280, 354, 290]], colors.sage, 2, '#e4e4d24a');
+                        p.path([[148, 323], [147, 336]], colors.sage, 2);
+                        p.path([[358, 323], [361, 336]], colors.sage, 2);
+                        person(p, 204, 325, { scale: .78, pose: 'sit', arms: [[-22, -44], [46, -58]] });
+                        person(p, 284, 325, { female: true, scale: .78, pose: 'sit', arms: [[-56, -58], [24, -44]] });
+                        p.path([[387, 325], [387, 233]], colors.gold, 1.8);
+                        p.path([[370, 210], [404, 210], [416, 239], [358, 239], [370, 210]], colors.gold, 1.8, '#eee0b93d');
+                        p.path([[373, 328], [401, 328]], colors.gold, 1.8);
+                        p.rect(82, 300, 42, 34, colors.gold, '#e5ccaa30');
+                        p.path([[103, 301], [103, 315]], colors.gold, 1.2);
+                        p.path([[80, 301], [86, 290], [105, 295], [120, 290], [126, 301]], colors.gold, 1.5);
+                        sprig(p, 432, 321, .68);
+                        p.path([[423, 321], [427, 338], [442, 338], [447, 321], [423, 321]], colors.sage, 1.5);
+                        heart(p, 259, 189, 11);
+                    }
+                },
+                {
+                    title: '情人节，约定未来', description: '情人节日历上写着十四日，两个人站在一起，面前的桌子上放着订婚戒指。',
+                    draw(p) {
+                        ground(p);
+                        p.rect(76, 108, 74, 71, colors.pale, '#f5eadc60');
+                        p.path([[76, 128], [150, 128]], colors.pale, 1.5);
+                        p.path([[94, 101], [94, 115]], colors.rose, 2);
+                        p.path([[132, 101], [132, 115]], colors.rose, 2);
+                        p.text(113, 159, '14', 24, colors.rose);
+                        person(p, 194, 334, { arms: [[-26, -45], [40, -56]] });
+                        person(p, 328, 334, { female: true, arms: [[-42, -56], [26, -45]] });
+                        p.path([[225, 284], [295, 284]], colors.gold, 2);
+                        p.path([[233, 285], [228, 336]], colors.gold, 1.8);
+                        p.path([[287, 285], [292, 336]], colors.gold, 1.8);
+                        p.rect(244, 263, 32, 20, colors.rose, '#eed4c24d');
+                        p.path([[244, 263], [245, 247], [276, 247], [276, 263]], colors.rose, 1.7);
+                        p.ellipse(260, 261, 6, 6, colors.gold, 1.6);
+                        p.ellipse(249, 153, 19, 22, colors.gold, 2.4);
+                        p.ellipse(273, 153, 19, 22, colors.gold, 2.4);
+                        p.path([[264, 131], [269, 122], [277, 122], [282, 131], [273, 139], [264, 131]], colors.rose, 1.6);
+                        heart(p, 263, 103, 9);
+                        sprig(p, 423, 332, .85, true);
+                        sparkle(p, 305, 146, 5);
+                    }
+                },
+                {
+                    title: '余生，想和你一起', description: '花枝围成的拱门下，男孩单膝跪地，举起戒指，向女孩求婚。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[105, 330], [104, 91, 420, 50, 423, 330]], colors.pale, 2);
+                        sprig(p, 113, 288, .85);
+                        sprig(p, 419, 280, .85, true);
+                        sprig(p, 133, 185, .6);
+                        sprig(p, 401, 182, .6, true);
+                        flower(p, 121, 208, 10);
+                        flower(p, 409, 208, 9);
+                        flower(p, 180, 117, 8);
+                        flower(p, 349, 110, 9);
+                        person(p, 207, 355, { pose: 'kneel', scale: .95, arms: [[-23, -47], [65, -92]], profile: true });
+                        person(p, 322, 333, { female: true, arms: [[-33, -83], [22, -46]] });
+                        p.ellipse(275, 260, 5, 6, colors.gold, 1.8);
+                        p.path([[271, 252], [275, 247], [279, 252], [275, 256], [271, 252]], colors.rose, 1.2);
+                        heart(p, 272, 181, 17, colors.rose, '#e9c7b437');
+                        sparkle(p, 275, 232, 4);
+                        sparkle(p, 224, 159, 4);
+                    }
+                },
+                {
+                    title: '两本红本，一个家', description: '两本印着结婚证字样的小红本并排放在一起，下方是牵着手的两个人。',
+                    draw(p) {
+                        ground(p);
+                        p.group(151, 114, 1, () => {
+                            p.rect(0, 0, 94, 119, colors.rose, '#d7a08726');
+                            p.path([[8, 0], [8, 119]], colors.rose, 1.3);
+                            heart(p, 51, 37, 13, colors.gold);
+                            p.text(51, 73, '结婚证', 15, colors.rose);
+                            p.path([[27, 91], [74, 91]], colors.gold, 1);
+                        }, false, -.1);
+                        p.group(279, 105, 1, () => {
+                            p.rect(0, 0, 94, 119, colors.rose, '#d7a08726');
+                            p.path([[8, 0], [8, 119]], colors.rose, 1.3);
+                            heart(p, 51, 37, 13, colors.gold);
+                            p.text(51, 73, '结婚证', 15, colors.rose);
+                            p.path([[27, 91], [74, 91]], colors.gold, 1);
+                        }, false, .1);
+                        person(p, 231, 339, { scale: .64, arms: [[-25, -46], [45, -55]] });
+                        person(p, 289, 339, { female: true, scale: .64, arms: [[-45, -55], [25, -46]] });
+                        sprig(p, 105, 333, .8);
+                        sprig(p, 415, 333, .8, true);
+                        heart(p, 260, 76, 10);
+                        sparkle(p, 109, 155, 5);
+                        sparkle(p, 410, 171, 5);
+                    }
+                },
+                {
+                    title: '第七年，一起看世界', description: '地球和飞机勾勒出第一次出国旅行，两个人带着行李，站在棕榈树旁。',
+                    draw(p) {
+                        ground(p);
+                        p.ellipse(260, 156, 67, 67, colors.pale, 1.8);
+                        p.ellipse(260, 156, 32, 67, colors.pale, 1.2);
+                        p.ellipse(260, 156, 67, 24, colors.pale, 1.2);
+                        p.path([[193, 156], [327, 156]], colors.pale, 1.2);
+                        p.path([[260, 89], [260, 223]], colors.pale, 1.2);
+                        p.path([[215, 117], [234, 125], [228, 144], [244, 154], [238, 180], [225, 174], [216, 151]], colors.sage, 1.7);
+                        p.path([[284, 106], [303, 125], [285, 141], [293, 153], [279, 171], [283, 192]], colors.sage, 1.7);
+                        p.path([[135, 154], [101, 43, 334, 41, 386, 116]], colors.gold, 1.4);
+                        p.group(378, 99, 1, () => {
+                            p.path([[-24, 2], [-5, -2], [0, -20], [6, -21], [8, -3], [29, 3], [29, 9], [7, 6], [0, 20], [-5, 19], [-4, 5], [-24, 7], [-24, 2]], colors.ink, 1.7, colors.paper);
+                        }, false, .45);
+                        person(p, 222, 336, { scale: .78, arms: [[-39, -43], [45, -58]] });
+                        person(p, 296, 336, { female: true, scale: .78, arms: [[-50, -58], [25, -46]] });
+                        suitcase(p, 177, 336, .85);
+                        suitcase(p, 340, 336, .67);
+                        p.path([[421, 333], [423, 260, 408, 213]], colors.gold, 2.5);
+                        p.path([[408, 213], [382, 188, 366, 217], [389, 207, 408, 213], [431, 187, 454, 211], [431, 208, 408, 213], [403, 190, 417, 187]], colors.sage, 2);
+                        heart(p, 133, 226, 9);
+                    }
+                },
+                {
+                    title: '第九年，我们结婚了', description: '繁花拱门下，新郎与穿着婚纱的新娘牵手站在一起，中间是一束花。',
+                    draw(p) {
+                        ground(p);
+                        p.path([[111, 335], [111, 164], [111, 40, 411, 40, 411, 164], [411, 335]], colors.gold, 2);
+                        p.path([[124, 333], [124, 167], [124, 61, 398, 61, 398, 167], [398, 333]], colors.pale, 1.2);
+                        [[117, 272, .7], [118, 201, .7], [134, 137, .6], [181, 101, .55], [405, 274, .7], [405, 200, .7], [390, 138, .6], [343, 101, .55]].forEach(([x, y, s], i) => sprig(p, x, y, s, i > 3));
+                        [[120, 235], [122, 169], [153, 117], [400, 235], [400, 165], [366, 114], [256, 88]].forEach(([x, y]) => flower(p, x, y, 9));
+                        person(p, 214, 334, { wedding: true, arms: [[-24, -45], [45, -58]] });
+                        person(p, 305, 334, { female: true, wedding: true, arms: [[-46, -58], [26, -49]] });
+                        p.path([[261, 280], [249, 254], [272, 254], [261, 280]], colors.sage, 1.5);
+                        flower(p, 252, 250, 7);
+                        flower(p, 265, 247, 8);
+                        flower(p, 261, 257, 7);
+                        heart(p, 262, 158, 14);
+                        sparkle(p, 73, 240, 5);
+                        sparkle(p, 453, 194, 5);
+                    }
+                },
+                {
+                    title: '第十年，我们仨', description: '温暖的小屋里，爸爸妈妈一起抱着宝宝，屋顶上方有一颗心，我们成为一家三口。',
+                    draw(p) {
+                        houseOutline(p);
+                        ground(p);
+                        family(p);
+                        sprig(p, 116, 334, .78);
+                        sprig(p, 405, 334, .78, true);
+                        heart(p, 260, 52, 12, colors.rose, '#ecc8b34a');
+                        heart(p, 151, 196, 9);
+                        heart(p, 369, 190, 9);
+                        sparkle(p, 170, 148, 4);
+                        sparkle(p, 352, 152, 4);
+                        p.text(260, 375, 'YOU + ME = WE', 13, colors.rose);
+                    }
+                }
+            ];
+
+            const sketches = sceneDefinitions.map(scene => { const sketch = new Sketch(); scene.draw(sketch); return sketch; });
+            const heroSketch = new Sketch();
+            heroSketch.group(0, -147, 1, () => {
+                family(heroSketch, 332);
+                heroSketch.path([[105, 334], [415, 334]], colors.pale, 1.3);
+                sprig(heroSketch, 133, 332, .72);
+                sprig(heroSketch, 388, 332, .72, true);
+                heart(heroSketch, 260, 206, 10);
+            });
+
+            function paint(canvas, sketch, progress, designHeight = 400) {
+                const context = canvas.getContext('2d');
+                if (!context) return;
+                const bounds = canvas.getBoundingClientRect();
+                if (!bounds.width || !bounds.height) return;
+                const dpr = Math.min(window.devicePixelRatio || 1, 3);
+                const width = Math.round(bounds.width * dpr), height = Math.round(bounds.height * dpr);
+                if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.clearRect(0, 0, width, height);
+                const scale = Math.min(width / 520, height / designHeight);
+                context.setTransform(scale, 0, 0, scale, (width - 520 * scale) / 2, (height - designHeight * scale) / 2);
+                context.lineCap = 'round';
+                context.lineJoin = 'round';
+                let remaining = sketch.total * clamp(progress);
+                for (const path of sketch.paths) {
+                    if (remaining <= 0) break;
+                    const fraction = clamp(remaining / path.weight);
+                    remaining -= path.weight;
+                    if (path.text) {
+                        context.globalAlpha = fraction;
+                        context.fillStyle = path.color;
+                        context.font = `${path.size}px Georgia, "Songti SC", "SimSun", serif`;
+                        context.textAlign = 'center';
+                        context.fillText(path.text, path.point[0], path.point[1]);
+                        context.globalAlpha = 1;
+                        continue;
+                    }
+                    if (path.fill) {
+                        context.beginPath();
+                        path.points.forEach(([x, y], i) => i ? context.lineTo(x, y) : context.moveTo(x, y));
+                        context.closePath();
+                        context.globalAlpha = fraction;
+                        context.fillStyle = path.fill;
+                        context.fill();
+                        context.globalAlpha = 1;
+                    }
+                    context.beginPath();
+                    context.moveTo(...path.points[0]);
+                    let lengthLeft = path.length * fraction;
+                    for (let j = 1; j < path.points.length; j++) {
+                        if (lengthLeft >= path.lengths[j]) {
+                            context.lineTo(...path.points[j]);
+                            lengthLeft -= path.lengths[j];
+                        } else {
+                            const t = path.lengths[j] ? lengthLeft / path.lengths[j] : 0;
+                            context.lineTo(mix(path.points[j - 1][0], path.points[j][0], t), mix(path.points[j - 1][1], path.points[j][1], t));
+                            break;
+                        }
+                    }
+                    context.strokeStyle = path.color;
+                    context.lineWidth = path.width;
+                    context.stroke();
+                }
+            }
+
+            const canvas = document.getElementById('story-canvas');
+            const heroCanvas = document.getElementById('hero-canvas');
+            const stage = document.querySelector('.drawing-stage');
+            const chapters = [...document.querySelectorAll('.chapter')];
+            const ticks = [...document.querySelectorAll('.stage-progress span')];
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const mobileLayout = window.matchMedia('(max-width: 700px)');
+            const progressByScene = Array(sceneDefinitions.length).fill(0);
+            let activeScene = -1;
+            let lastPaintedProgress = -1;
+            let frame = 0;
+            let replayStarted = null;
+            let forcePaint = true;
+
+            function selectScene(index) {
+                if (index === activeScene) return;
+                activeScene = index;
+                lastPaintedProgress = -1;
+                document.getElementById('scene-title').textContent = sceneDefinitions[index].title;
+                document.getElementById('scene-counter').textContent = `${String(index + 1).padStart(2, '0')} / 12`;
+                canvas.setAttribute('aria-label', sceneDefinitions[index].description);
+                canvas.dataset.scene = String(index + 1);
+                chapters.forEach((chapter, i) => chapter.classList.toggle('is-active', i === index));
+                ticks.forEach((tick, i) => { tick.classList.toggle('passed', i < index); tick.classList.toggle('current', i === index); });
+            }
+
+            function update(now) {
+                frame = 0;
+                let progress;
+                if (replayStarted !== null) {
+                    const elapsed = clamp((now - replayStarted) / 2600);
+                    progress = 1 - (1 - elapsed) ** 1.3;
+                    if (elapsed < 1) frame = requestAnimationFrame(update);
+                    else { replayStarted = null; progressByScene[activeScene] = 1; }
+                } else {
+                    const height = window.innerHeight;
+                    const stageBottom = stage.getBoundingClientRect().bottom;
+                    const readingLine = mobileLayout.matches ? stageBottom + Math.max(40, Math.min(85, (height - stageBottom) * .25)) : height * .52;
+                    const positions = chapters.map(chapter => chapter.getBoundingClientRect().top);
+                    let index = 0;
+                    positions.forEach((top, i) => { if (top <= readingLine) index = i; });
+                    selectScene(index);
+                    const drawn = clamp((readingLine - positions[index]) / Math.max(120, height * .25));
+                    progressByScene[index] = Math.max(progressByScene[index], drawn);
+                    progress = reducedMotion.matches ? 1 : progressByScene[index];
+                }
+                if (forcePaint || Math.abs(progress - lastPaintedProgress) > .0005) {
+                    paint(canvas, sketches[activeScene], progress);
+                    canvas.dataset.progress = progress.toFixed(3);
+                    lastPaintedProgress = progress;
+                }
+                if (forcePaint) paint(heroCanvas, heroSketch, 1, 210);
+                forcePaint = false;
+            }
+
+            function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+            function refresh() { forcePaint = true; schedule(); }
+            window.addEventListener('scroll', () => { replayStarted = null; schedule(); }, { passive: true });
+            window.addEventListener('resize', refresh, { passive: true });
+            window.addEventListener('pageshow', refresh);
+            reducedMotion.addEventListener('change', () => { replayStarted = null; refresh(); });
+            document.getElementById('replay').addEventListener('click', () => {
+                if (reducedMotion.matches) { progressByScene[activeScene] = 1; refresh(); return; }
+                replayStarted = performance.now();
+                schedule();
+            });
+            if ('ResizeObserver' in window) {
+                const observer = new ResizeObserver(refresh);
+                observer.observe(document.querySelector('.canvas-wrap'));
+                observer.observe(heroCanvas);
+            }
+            if (document.fonts) document.fonts.ready.then(refresh);
+            schedule();
+        })();
+    </script>
+</body>
+</html>
